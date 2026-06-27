@@ -72,6 +72,19 @@
       height: 40px;
       width: auto;
     }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+    .brand-ar {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .brand-en {
+      font-size: 0.75rem;
+      opacity: 0.85;
+    }
     .nav-links {
       display: flex;
       list-style: none;
