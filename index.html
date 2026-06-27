@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noor Community</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Design tokens (from existing brand) ── */
+    :root {
+      --dark-olive:   #4a592a;
+      --forest-green: #293d1a;
+      --deep-green:   #243d16;
+      --light-green:  #cacca5;
+      --pale-green:   #d0d2a9;
+      --cream:        #f1eadf;
+      --light-cream:  #f5f1e6;
+      --off-white:    #f3f3f3;
+      --marigold:     #eba03c;
+
+      --font-display: 'Questrial', system-ui, sans-serif;
+      --font-body:    'Nunito', system-ui, sans-serif;
+
+      --header-h: 72px;
+      --max-w: 860px;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation: none !important; transition: none !important; }
+    }
+    body {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 1.1vw, 1.125rem);
+      line-height: 1.75;
+      color: var(--forest-green);
+      background: var(--cream);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    /* ── Nav ── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-h);
+      background: color-mix(in srgb, var(--cream) 92%, transparent);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid color-mix(in srgb, var(--light-green) 50%, transparent);
+      display: flex;
+      align-items: center;
+      padding: 0 clamp(1.25rem, 5vw, 3rem);
+    }
+    .nav-inner {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      color: var(--deep-green);
+      font-weight: 700;
+    }
+    .nav-brand img {
+      height: 40px;
+      width: auto;
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: clamp(1rem, 3vw, 2rem);
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--dark-olive);
+      letter-spacing: 0.04em;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+    }
+    .nav-links a:hover {
+      color: var(--deep-green);
+      border-bottom-color: var(--marigold);
+    }
+
+    /* ── Shared layout ── */
+    .section {
+      padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3rem);
+    }
+    .inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    /* ── Section label (eyebrow) ── */
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--marigold);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Headings ── */
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      line-height: 1.2;
+      color: var(--deep-green);
+    }
+    h1 { font-size: clamp(2.25rem, 5vw, 3.25rem); }
+    h2 { font-size: clamp(1.6rem, 3.5vw, 2.25rem); margin-bottom: 1rem; }
+    h3 { font-size: 1.125rem; margin-bottom: 0.4rem; }
+
+    p { max-width: 70ch; }
+    p + p { margin-top: 0.75rem; }
+
+    /* ── Divider ── */
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--marigold);
+      border-radius: 99px;
+      margin: 1rem 0 1.75rem;
+    }
+
+    /* ── Hero ── */
+    #home {
+      background:
+        radial-gradient(ellipse 120% 80% at 10% 0%, color-mix(in srgb, var(--pale-green) 40%, transparent), transparent 60%),
+        var(--cream);
+      padding-top: clamp(4rem, 10vw, 7rem);
+      padding-bottom: clamp(3rem, 8vw, 6rem);
+    }
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .hero-inner h1 {
+      max-width: 18ch;
+    }
+    .hero-tagline {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--dark-olive);
+      max-width: 55ch;
+      font-weight: 600;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      background: var(--dark-olive);
+      color: var(--cream);
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+      width: fit-content;
+    }
+    .hero-cta:hover {
+      background: var(--deep-green);
+      transform: translateY(-2px);
+    }
+
+    /* ── About ── */
+    #about { background: var(--light-cream); }
+
+    /* ── Values ── */
+    #values { background: var(--cream); }
+
+    /* ── Purpose ── */
+    #purpose {
+      background: var(--deep-green);
+      color: var(--cream);
+    }
+    #purpose h2 { color: var(--light-green); }
+    #purpose .divider { background: var(--marigold); }
+    #purpose .eyebrow { color: var(--pale-green); }
+    #purpose p { color: color-mix(in srgb, var(--cream) 85%, var(--light-green) 15%); }
+    #purpose ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    #purpose ul li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    #purpose ul li::before {
+      content: '';
+      flex-shrink: 0;
+      margin-top: 0.55em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--marigold);
+    }
+
+    /* ── What we do ── */
+    #what-we-do { background: var(--light-cream); }
+    .offerings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .offering-card {
+      background: var(--cream);
+      border: 1px solid color-mix(in srgb, var(--light-green) 60%, transparent);
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .offering-card h3 { color: var(--dark-olive); }
+    .offering-card p {
+      font-size: 0.95rem;
+      color: var(--forest-green);
+    }
+    .offering-marker {
+      width: 28px;
+      height: 3px;
+      border-radius: 99px;
+      background: var(--marigold);
+      margin-bottom: 0.25rem;
+    }
+
+    /* ── Our students ── */
+    #our-students { background: var(--cream); }
+
+    /* ── Partners ── */
+    #partners { background: var(--light-cream); }
+    .partner-block {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .partner-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .partner-links a {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--dark-olive);
+      text-decoration: none;
+      border-bottom: 2px solid var(--marigold);
+      padding-bottom: 1px;
+      transition: color 0.2s var(--ease);
+    }
+    .partner-links a:hover { color: var(--deep-green); }
+
+    /* ── Contact ── */
+    #contact {
+      background: var(--dark-olive);
+      color: var(--cream);
+    }
+    #contact h2 { color: var(--light-green); }
+    #contact .divider { background: var(--marigold); }
+    #contact .eyebrow { color: var(--pale-green); }
+    #contact p { color: color-mix(in srgb, var(--cream) 85%, var(--light-green) 15%); }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.75rem;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--cream);
+      font-weight: 700;
+      font-size: 1rem;
+      transition: color 0.2s var(--ease);
+      width: fit-content;
+    }
+    .contact-link:hover { color: var(--marigold); }
+    .contact-link svg {
+      flex-shrink: 0;
+      opacity: 0.8;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--deep-green);
+      color: color-mix(in srgb, var(--light-green) 70%, transparent);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-note {
+      font-size: 0.85rem;
+      color: var(--dark-olive);
+      opacity: 0.75;
+      max-width: 50ch;
+      margin-top: 0.25rem;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── Mobile nav toggle ── */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 2px solid var(--dark-olive);
+      border-radius: 6px;
+      padding: 0.35rem 0.5rem;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--dark-olive);
+      border-radius: 99px;
+      transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+    }
+    @media (max-width: 640px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        background: var(--cream);
+        flex-direction: column;
+        padding: 1.25rem 1.5rem 1.75rem;
+        border-bottom: 1px solid color-mix(in srgb, var(--light-green) 50%, transparent);
+        gap: 0.75rem;
+        box-shadow: 0 8px 24px rgba(36,61,22,0.12);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#home" class="nav-brand">
+        <img src="assets/nlg.png" alt="Noor Community" />
+        Noor Community
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#what-we-do">What we do</a></li>
+        <li><a href="#our-students">Students</a></li>
+        <li><a href="#partners">Partners</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" aria-labelledby="hero-heading">
+    <div class="hero-inner">
+      <span class="eyebrow">English language &amp; mentoring</span>
+      <h1 id="hero-heading">Learning rooted in Palestinian life</h1>
+      <p class="hero-tagline">
+        Noor Community brings together Palestinians and people from around the world
+        to provide English language classes and mentoring to Palestinian adults.
+      </p>
+      <a href="#what-we-do" class="hero-cta">What we offer</a>
+      <p class="hero-note">We do not currently accept open applications. New students join through referrals and partner organisations.</p>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section" aria-labelledby="about-heading">
+    <div class="inner reveal">
+      <span class="eyebrow">About us</span>
+      <h2 id="about-heading">A community rooted in Palestinian priorities</h2>
+      <div class="divider"></div>
+      <p>
+        Noor Community is a community rooted in Palestinian priorities and needs that brings
+        together Palestinians and people from around the world to provide English language
+        classes and mentoring to Palestinian adults.
+      </p>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section id="values" class="section" aria-labelledby="values-heading">
+    <div class="inner reveal">
+      <span class="eyebrow">Our values</span>
+      <h2 id="values-heading">Informed by context and need</h2>
+      <div class="divider"></div>
+      <p>
+        We aim to support students in ways that are informed by their context and need.
+        To achieve this, we regularly seek feedback and ideas from all community members —
+        students, teachers, mentors and staff — and prioritise their agency and perspective.
+      </p>
+    </div>
+  </section>
+
+  <!-- Purpose -->
+  <section id="purpose" class="section" aria-labelledby="purpose-heading">
+    <div class="inner reveal">
+      <span class="eyebrow">Our purpose</span>
+      <h2 id="purpose-heading">Why we do this work</h2>
+      <div class="divider"></div>
+      <p>The goal of Noor Community is to support Palestinian young adults in:</p>
+      <ul>
+        <li>pursuing their academic, professional and personal aspirations through English language learning and targeted mentoring</li>
+        <li>building the confidence and skills to communicate with the world, share their stories and experiences as Palestinians and contribute to a future of dignity and justice</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section id="what-we-do" class="section" aria-labelledby="offerings-heading">
+    <div class="inner">
+      <div class="reveal">
+        <span class="eyebrow">What we offer</span>
+        <h2 id="offerings-heading">Support for our community</h2>
+        <div class="divider"></div>
+        <p>We offer the following support to our community of Palestinian young adults:</p>
+      </div>
+      <div class="offerings">
+        <div class="offering-card reveal">
+          <div class="offering-marker"></div>
+          <h3>English language classes</h3>
+          <p>Small-group classes focused on the learning needs and goals of the individual student, which may include proficiency exam preparation, academic English and skills, English for work or general English.</p>
+        </div>
+        <div class="offering-card reveal">
+          <div class="offering-marker"></div>
+          <h3>Mentoring</h3>
+          <p>One-to-one support for university and scholarship applications, academic planning, job hunting and professional skills, and other life skills.</p>
+        </div>
+        <div class="offering-card reveal">
+          <div class="offering-marker"></div>
+          <h3>Conversation practice</h3>
+          <p>Low-stakes, relaxed opportunities to practise speaking in English, discussing topics of common interest, and to meet fellow students and mentees.</p>
+        </div>
+        <div class="offering-card reveal">
+          <div class="offering-marker"></div>
+          <h3>Workshops</h3>
+          <p>Occasional sessions or series of sessions led by experts on topics and skills of interest.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our students -->
+  <section id="our-students" class="section" aria-labelledby="students-heading">
+    <div class="inner reveal">
+      <span class="eyebrow">Our students</span>
+      <h2 id="students-heading">Who we work with</h2>
+      <div class="divider"></div>
+      <p>
+        Our community is made up of Palestinian adults based in Gaza, the West Bank and outside Palestine.
+      </p>
+      <p>
+        In order to maintain quality, security and sustainability, we do not have an open student recruitment
+        policy. New students join through referrals from existing long-term community members — students or
+        staff — or through our partner institution, Al Manar Society.
+      </p>
+    </div>
+  </section>
+
+  <!-- Partners -->
+  <section id="partners" class="section" aria-labelledby="partners-heading">
+    <div class="inner reveal">
+      <span class="eyebrow">Partners</span>
+      <h2 id="partners-heading">Al Manar Society</h2>
+      <div class="divider"></div>
+      <div class="partner-block">
+        <p>
+          We work in association with Al Manar Society, a Bethlehem-based organisation founded on
+          principles of empowerment and self-determination, which supports Palestinians through
+          comprehensive educational, cultural, and social programmes.
+        </p>
+        <div class="partner-links">
+          <a href="https://almanar-society.org/" target="_blank" rel="noopener noreferrer">Website</a>
+          <a href="https://www.instagram.com/almanarsociety/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section" aria-labelledby="contact-heading">
+    <div class="inner reveal">
+      <span class="eyebrow">Get in touch</span>
+      <h2 id="contact-heading">Contact us</h2>
+      <div class="divider"></div>
+      <p>
+        If you would like to get in touch with questions, ideas for collaboration,
+        a workshop proposal or to volunteer, you are welcome to reach us by email or on LinkedIn.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:almanarnoorcommunity@gmail.com" class="contact-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          almanarnoorcommunity@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/company/106046250" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>© <span id="yr"></span> Noor Community</p>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+    // Close on link click
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
