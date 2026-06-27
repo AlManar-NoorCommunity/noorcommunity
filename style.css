@@ -371,3 +371,11 @@
       .nav-links.open { display: flex; }
       .nav-links a { font-size: 1rem; }
     }
+
+      html[dir="rtl"] {
+      direction: rtl;
+    }
+
+      html[dir="rtl"] body {
+      text-align: right;
+    }
